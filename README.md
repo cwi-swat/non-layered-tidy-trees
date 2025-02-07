@@ -8,7 +8,7 @@ Secondly, one might expect that the minimal x coordinate of the layout produced 
 
 Other versions of the algorithm:
 
-[d3 flextree](d3-flextree https://github.com/Klortho/d3-flextree) For the d3 javascript visualization library
+[d3 flextree](https://github.com/Klortho/d3-flextree) For the d3 javascript visualization library
 
 [non-layered-ridy-trees.c](https://github.com/massimo-nocentini/non-layered-tidy-trees.c) Version in C
 
