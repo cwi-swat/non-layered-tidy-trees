@@ -20,6 +20,6 @@ Other versions of the algorithm:
 
 [tidytree dart](https://github.com/teodorov/ploeg_tree_layout) Dart version
 
-[tidy Rust](https://github.com/zxch3n/tidy) A rust version, with a nice (blog)[https://www.zxch3n.com/tidy/tidy/] describing it
+[tidy Rust](https://github.com/zxch3n/tidy) A rust version, with a nice [blog](https://www.zxch3n.com/tidy/tidy/) describing it
 
 
