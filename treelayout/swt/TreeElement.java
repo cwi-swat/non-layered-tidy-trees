@@ -38,6 +38,7 @@ public class TreeElement extends Composite implements SelectionListener, PaintLi
 	GenerateTrees gen;
 	Marshall m;
 	Random rand;
+	boolean first = true;
 	
 	public static int SEED = 42;
 	
@@ -59,12 +60,50 @@ public class TreeElement extends Composite implements SelectionListener, PaintLi
 	
 	public void reinit(){
 //		tree = new TreeNode(10, 10, new TreeNode(10,10,new TreeNode(10,10,new TreeNode(10,10),new TreeNode(10,10))), new TreeNode(10,10,new TreeNode(10,10), new TreeNode(10,10,new TreeNode(10,10))));
-
+		if (first) {
+			tree = new TreeNode(10, 10,
+					new TreeNode(10, 10),
+					new TreeNode(10, 10,
+							new TreeNode(200, 10),
+							new TreeNode(20, 10),
+							new TreeNode(10, 10),
+							new TreeNode(10, 10),
+							new TreeNode(10, 10)
+					),
+					new TreeNode(10, 10)
+			);
+			tree = new TreeNode(10, 10,
+					new TreeNode(10, 10),
+					new TreeNode(10, 10),
+					new TreeNode(10, 10),
+					new TreeNode(10, 10,
+							new TreeNode(200, 10),
+							new TreeNode(20, 10),
+							new TreeNode(10, 10),
+							new TreeNode(10, 10),
+							new TreeNode(10, 10)
+					),
+					new TreeNode(10, 10)
+			);
+			tree = new TreeNode( 40, 40,
+					new TreeNode( 40, 40 ),
+			new TreeNode( 40, 40,
+					new TreeNode( 40, 40,
+							new TreeNode( 100, 40 ),
+			new TreeNode( 200, 40 )
+							)
+					)
+					);
+			first = false ;
+		} else {
+			tree = gen.rand();
+		}
 		//do {
-		tree = gen.rand();
+
 		tree.addGap(10,10);
 		doLayout();
 		//}while(!overlap());
+
 	}
 
 	
@@ -95,7 +134,7 @@ public class TreeElement extends Composite implements SelectionListener, PaintLi
 		long dur = now - start;
 		System.out.printf("Layout in %d ms \n\n",dur);
 		m.convertBack(converted, tree);
-		tree.normalizeX();
+		//tree.normalizeX();
 		BoundingBox b = tree.getBoundingBox();
 		width = b.width;
 		height = b.height;
@@ -157,7 +196,7 @@ public class TreeElement extends Composite implements SelectionListener, PaintLi
 			gc.setAlpha(255);
 			gc.drawRectangle(roundInt(zoom * (root.x + root.hgap/2 - xOffset)), roundInt(zoom * (root.y + root.vgap/2 -yOffset)), roundInt(zoom * (root.width - root.hgap)), roundInt(zoom * (root.height -  root.vgap)));
 			c.dispose();
-		if(root.children.size() > 0){
+		if(!root.children.isEmpty()){
 			double endYRoot =  root.y + root.height -root.vgap/2 ;
 			double rootMiddle = root.x + root.width/2.0;
 			
@@ -230,7 +269,10 @@ public class TreeElement extends Composite implements SelectionListener, PaintLi
 			reinit();
 		} else if(e.keyCode == 'a'){
 			doLayout();
-		} else if(e.keyCode == 'p'){
+		} else if(e.keyCode == 'm'){
+			tree = tree.mirrrored();
+			doLayout();
+		}else if(e.keyCode == 'p'){
 			tree.print();
 			System.out.printf("\n");
 		} 
