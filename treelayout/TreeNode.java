@@ -1,5 +1,7 @@
 package treelayout;
 
+import org.eclipse.swt.widgets.Tree;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -14,12 +16,30 @@ public final class TreeNode {
 	public double hgap, vgap;
 	// output
 	public double x,y;
+
+
+	public TreeNode(double width, double height, double hgap, double vgap, TreeNode ... children){
+		this.width = width;
+		this.height = height;
+		this.hgap = hgap;
+		this.vgap = vgap;
+		this.children = new Vector<TreeNode>();
+		this.children.addAll(Arrays.asList(children));
+	}
 	
 	public TreeNode(double width, double height, TreeNode ... children){
 		this.width = width;
 		this.height = height;
 		this.children = new Vector<TreeNode>();
 		this.children.addAll(Arrays.asList(children));
+	}
+
+	public TreeNode mirrrored(){
+		TreeNode[] childrenMirrored = new TreeNode[children.size()];
+		for(int i = 0 ; i < childrenMirrored.length ; i++) {
+			childrenMirrored[i] = children.get(children.size() - i - 1).mirrrored();
+		}
+		return new TreeNode(width,height, hgap, vgap,childrenMirrored);
 	}
 	
 	public BoundingBox getBoundingBox(){
